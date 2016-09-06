@@ -45,7 +45,7 @@ def has_chosen_valid_difficulty(difficulty):
     difficulty = difficulty.lower().strip()
     return difficulty in ['easy', 'medium', 'hard']
 
-def has_guessed_word(word, good_guesses):
+def is_word_complete(word, good_guesses):
     for letter in word:
         if letter not in good_guesses:
             return False
@@ -109,7 +109,7 @@ def main():
         else:
             break
 
-    if has_guessed_word(word, good_guesses):
+    if is_word_complete(word, good_guesses):
         print("Congratulations! You won!")
     else:
         if len(bad_guesses) == 7:
