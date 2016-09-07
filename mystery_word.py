@@ -1,6 +1,7 @@
 import random
 import sys
 
+
 def get_words():
     word_list = []
     with open('/usr/share/dict/words', 'r') as f:
@@ -9,53 +10,61 @@ def get_words():
             word_list.append(clean)
     return word_list
 
+
 def easy_words(word_list):
-    #easy_words = []
-    return [word for word in word_list if len(word) >= 4 and len(word)<= 6]
+    # easy_words = []
+    return [word for word in word_list if len(word) >= 4 and len(word) <= 6]
 
 
 def medium_words(word_list):
-    #medium_words = []
+    # medium_words = []
     return [word for word in word_list if len(word) >= 6 and len(word) <= 8]
 
+
 def hard_words(word_list):
-    #hard_words = []
-    return [word for word in word_list if len(word) >= 8 and len(word) <=50]
+    # hard_words = []
+    return [word for word in word_list if len(word) >= 8 and len(word) <= 50]
+
 
 def random_word(word_list):
     return random.choice(word_list)
 
+
 def display_word(word, bad_guesses, good_guesses):
-    #print("secret word:", word)
     secret_word_list = list(word)
     for guess in bad_guesses:
-       print(guess.upper(), end = ' ')
-    print('')
+        print(guess.upper(), end=' ')
+    print(' ')
 
     for guess in secret_word_list:
         if guess in good_guesses:
-            print(guess.upper(), end = ' ')
+            print(guess.upper(), end=' ')
         else:
-            print('_', end = ' ')
-               #display_word[index] = guess
-               #for index, guess in enumerate(word_list):
+            print('_', end=' ')
+            # display_word[index] = guess
+            # for index, guess in enumerate(word_list):
     print("")
+
 
 def has_chosen_valid_difficulty(difficulty):
     difficulty = difficulty.lower().strip()
     return difficulty in ['easy', 'medium', 'hard']
 
-def is_word_complete(word, good_guesses):
+
+def has_guessed_word(word, good_guesses):
     for letter in word:
         if letter not in good_guesses:
             return False
     return True
 
+
 def has_more_guesses(bad_guesses):
     return len(bad_guesses) < 7
 
+
 def is_game_over(word, bad_guesses, good_guesses):
     return has_guessed_word(word, good_guesses) or not has_more_guesses(bad_guesses)
+
 
 def main():
     word_list = get_words()
@@ -109,7 +118,7 @@ def main():
         else:
             break
 
-    if is_word_complete(word, good_guesses):
+    if has_guessed_word(word, good_guesses):
         print("Congratulations! You won!")
     else:
         if len(bad_guesses) == 7:
